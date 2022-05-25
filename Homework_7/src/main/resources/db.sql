@@ -1,3 +1,17 @@
+DROP TABLE if EXISTS public.hall CASCADE;
+DROP table if EXISTS public.sector CASCADE;
+DROP TABLE if EXISTS public.movie CASCADE;
+DROP TABLE if EXISTS public.place CASCADE;
+DROP TABLE if EXISTS public."row" CASCADE;
+DROP TABLE if EXISTS public."show" CASCADE;
+DROP TABLE if EXISTS public.ticket CASCADE;
+DROP TABLE if EXISTS public.usr CASCADE;
+DROP TABLE if EXISTS public.vip_user CASCADE;
+DROP table if EXISTS public.ticket_status CASCADE;
+
+
+
+
 CREATE TABLE public.movie
 (
     id          integer GENERATED ALWAYS AS identity
@@ -36,27 +50,18 @@ create table row
     unique (NUMBER, HALL_ID)
 );
 
+CREATE TABLE public.sector (
+	id integer NOT NULL GENERATED ALWAYS AS identity CONSTRAINT sector_pk PRIMARY KEY,
+	sector_title varchar not null
+);
+
 create table public.place
 (
     id     integer generated always as identity
         constraint place_pk primary key,
     number smallint Not null,
-    row_id integer  not null
-        constraint row_fk references public.row (id)
-);
-
-
-CREATE TABLE public.ticket
-(
-    id       integer GENERATED ALWAYS AS identity
-        CONSTRAINT ticket_pk PRIMARY KEY,
-    show_id  integer not null
-        constraint show_fk references public.show (id),
-    place_id integer not null
-        constraint place_fk references public.place (id),
-    cost     integer not null,
-    sold     boolean not null default false,
-    unique (show_id, place_id)
+    row_id integer  not null constraint row_fk references public.row (id),
+    sector_id integer  constraint sector_fk references public.sector (id)
 );
 
 create table usr
@@ -67,15 +72,38 @@ create table usr
     email varchar(255) NOT null
 );
 
-create table user_ticket
-(
-    user_id   integer not null
-        constraint user_fk references usr (id) on delete cascade,
-    ticket_id integer not null
-        constraint ticet_fk references ticket (id),
-    primary key (user_id, ticket_id),
-    unique (ticket_id)
+CREATE TABLE public.ticket_status (
+	id integer NOT NULL GENERATED ALWAYS AS identity CONSTRAINT ticket_status_pk PRIMARY KEY,
+	ticket_status varchar NOT NULL
 );
+
+
+
+CREATE TABLE public.ticket
+(
+    id       integer GENERATED ALWAYS AS identity
+        CONSTRAINT ticket_pk PRIMARY KEY,
+    show_id  integer not null
+        constraint show_fk references public.show (id),
+    place_id integer not null
+        constraint place_fk references public.place (id),
+    user_id integer constraint user_fk references usr(id),
+    ticket_status_id integer not null constraint ticket_status_fk references ticket_status(id),
+    cost     integer not null,
+    unique (show_id, place_id)
+);
+
+
+
+--create table user_ticket
+--(
+--    user_id   integer not null
+--        constraint user_fk references usr (id) on delete cascade,
+--    ticket_id integer not null
+--        constraint ticet_fk references ticket (id),
+--    primary key (user_id, ticket_id),
+--    unique (ticket_id)
+--);
 
 create table vip_user
 (
@@ -415,20 +443,32 @@ INSERT INTO public."show" (movie_id, time_start)
 VALUES (4, '2022-05-22 16:00:00.000');
 
 
-INSERT INTO public.ticket (show_id, place_id, cost, sold)
-VALUES (1, 2, 100, true);
-INSERT INTO public.ticket (show_id, place_id, cost, sold)
-VALUES (1, 3, 100, true);
-INSERT INTO public.ticket (show_id, place_id, cost, sold)
-VALUES (1, 4, 100, true);
-INSERT INTO public.ticket (show_id, place_id, cost, sold)
-VALUES (1, 5, 100, true);
 
-INSERT INTO public.user_ticket (user_id, ticket_id)
-VALUES (1, 3);
-INSERT INTO public.user_ticket (user_id, ticket_id)
-VALUES (2, 2);
-INSERT INTO public.user_ticket (user_id, ticket_id)
-VALUES (3, 1);
-INSERT INTO public.user_ticket (user_id, ticket_id)
-VALUES (1, 4);
+
+
+
+
+INSERT INTO public.ticket_status (ticket_status) VALUES('ON_SALE');
+INSERT INTO public.ticket_status (ticket_status) VALUES('SOLD');
+INSERT INTO public.ticket_status (ticket_status) VALUES('CANCELLED');
+INSERT INTO public.ticket_status (ticket_status) VALUES('BOOKING');
+INSERT INTO public.ticket_status (ticket_status) VALUES('EXPIRED');
+INSERT INTO public.ticket_status (ticket_status) VALUES('USED');
+
+INSERT INTO public.ticket (show_id, place_id, cost, ticket_status_id)
+VALUES (1, 2, 100, 1);
+INSERT INTO public.ticket (show_id, place_id, cost, ticket_status_id)
+VALUES (1, 3, 100, 1);
+INSERT INTO public.ticket (show_id, place_id, cost, ticket_status_id)
+VALUES (1, 4, 100, 1);
+INSERT INTO public.ticket (show_id, place_id, cost, ticket_status_id)
+VALUES (1, 5, 100, 1);
+
+--INSERT INTO public.user_ticket (user_id, ticket_id)
+--VALUES (1, 3);
+--INSERT INTO public.user_ticket (user_id, ticket_id)
+--VALUES (2, 2);
+--INSERT INTO public.user_ticket (user_id, ticket_id)
+--VALUES (3, 1);
+--INSERT INTO public.user_ticket (user_id, ticket_id)
+--VALUES (1, 4);
