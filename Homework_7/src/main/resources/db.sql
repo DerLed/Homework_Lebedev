@@ -1,6 +1,6 @@
 DROP TABLE if EXISTS public.hall CASCADE;
 DROP table if EXISTS public.sector CASCADE;
-DROP TABLE if EXISTS public.movie CASCADE;
+DROP TABLE if EXISTS public.movies CASCADE;
 DROP TABLE if EXISTS public.place CASCADE;
 DROP TABLE if EXISTS public."row" CASCADE;
 DROP TABLE if EXISTS public."show" CASCADE;
@@ -12,7 +12,7 @@ DROP table if EXISTS public.ticket_status CASCADE;
 
 
 
-CREATE TABLE public.movie
+CREATE TABLE public.movies
 (
     id          integer GENERATED ALWAYS AS identity
         CONSTRAINT movie_pk PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE public.movie
     duration    integer       not null
 );
 COMMENT
-ON COLUMN public.movie.duration IS 'minute';
+ON COLUMN public.movies.duration IS 'minute';
 
 CREATE TABLE public.hall
 (
@@ -388,7 +388,7 @@ VALUES (6, 13);
 --
 
 
-INSERT INTO public.usr (name, email)
+INSERT INTO public."usr" (name, email)
 VALUES ('Антон', '111@mail.ru');
 INSERT INTO public.usr (name, email)
 VALUES ('Владимир', '222@mail.ru');
@@ -400,25 +400,25 @@ INSERT INTO public.usr (name, email)
 VALUES ('Евгений', '555@mail.ru');
 
 
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Побег из Шоушенка', '1994	Фрэнк Дарабонт	драма', 142);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Крёстный отец', '1972	Фрэнсис Форд Коппола	детектив, драма', 175);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Крёстный отец 2', '1974	Фрэнсис Форд Коппола	детектив, драма', 202);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Тёмный рыцарь', '2008	Кристофер Нолан	боевик, детектив, драма', 152);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('12 разгневанных мужчин', '1957	Сидни Люмет	драма, детектив', 130);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Список Шиндлера', '1993	Стивен Спилберг	драма, биография, исторический фильм', 130);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Властелин колец: Возвращение короля', '2003	Питер Джексон	фэнтези, приключение, боевик', 130);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Криминальное чтиво', '1994	Квентин Тарантино	чёрная комедия, драма', 90);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Властелин колец: Братство Кольцо', '2001	Питер Джексон	фэнтези, приключение, боевик', 90);
-INSERT INTO public.movie (title, description, duration)
+INSERT INTO public.movies (title, description, duration)
 values ('Хороший, плохой, злой', '1966	Серджо Леоне	приключение, вестерн', 90);
 
 INSERT INTO public."show" (movie_id, time_start)
