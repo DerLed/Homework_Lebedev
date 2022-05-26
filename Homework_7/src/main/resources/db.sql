@@ -502,6 +502,32 @@ Insert into genres (name) VALUES ('триллер');
 Insert into genres (name) VALUES ('ужасы');
 Insert into genres (name) VALUES ('фантастика');
 Insert into genres (name) VALUES ('фэнтези');
+
+
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(1, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(2, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(2, 6);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(3, 6);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(3, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(4, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(6, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(6, 2);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(6, 10);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(6, 6);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(5, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(7, 29);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(7, 21);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(7, 3);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(8, 9);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(8, 11);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(9, 3);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(9, 29);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(9, 21);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(10, 21);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(10, 4);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(11, 3);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(11, 16);
+INSERT INTO public.genres_movies (movies_id, genres_id) VALUES(11, 28);
 --INSERT INTO public.user_ticket (user_id, ticket_id)
 --VALUES (1, 3);
 --INSERT INTO public.user_ticket (user_id, ticket_id)
