@@ -13,8 +13,9 @@ DROP table if EXISTS public.ticket_status CASCADE;
 
 CREATE TABLE public.movie
 (
-    id integer GENERATED ALWAYS AS identity
-        CONSTRAINT movie_pk PRIMARY KEY,
+    id serial
+        constraint movie_pk
+            primary key,
     title       varchar(255)  NOT null,
     description varchar(2000) NOT null,
     duration    integer       not null
