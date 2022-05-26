@@ -443,11 +443,6 @@ INSERT INTO public."show" (movie_id, time_start)
 VALUES (4, '2022-05-22 16:00:00.000');
 
 
-
-
-
-
-
 INSERT INTO public.ticket_status (ticket_status) VALUES('ON_SALE');
 INSERT INTO public.ticket_status (ticket_status) VALUES('SOLD');
 INSERT INTO public.ticket_status (ticket_status) VALUES('CANCELLED');
@@ -464,6 +459,49 @@ VALUES (1, 4, 100, 1);
 INSERT INTO public.ticket (show_id, place_id, cost, ticket_status_id)
 VALUES (1, 5, 100, 1);
 
+CREATE TABLE public.genres (
+	id integer NOT NULL GENERATED ALWAYS AS identity
+	constraint genres_pk primary key,
+	"name" varchar(64) not NULL
+);
+
+create table genres_movies(
+	movies_id integer not null constraint movies_fk references movies (id),
+	genres_id integer not null constraint genres_fk references genres (id),
+	primary key (movies_id, genres_id)
+);
+
+
+Insert into genres (name) VALUES ('аниме');
+Insert into genres (name) VALUES ('биографический');
+Insert into genres (name) VALUES ('боевик');
+Insert into genres (name) VALUES ('вестерн');
+Insert into genres (name) VALUES ('военный');
+Insert into genres (name) VALUES ('детектив');
+Insert into genres (name) VALUES ('детский');
+Insert into genres (name) VALUES ('документальный');
+Insert into genres (name) VALUES ('драма');
+Insert into genres (name) VALUES ('исторический');
+Insert into genres (name) VALUES ('комедия');
+Insert into genres (name) VALUES ('концерт');
+Insert into genres (name) VALUES ('короткометражный');
+Insert into genres (name) VALUES ('криминал');
+Insert into genres (name) VALUES ('мелодрама');
+Insert into genres (name) VALUES ('мистика');
+Insert into genres (name) VALUES ('музыка');
+Insert into genres (name) VALUES ('мультфильм');
+Insert into genres (name) VALUES ('мюзикл');
+Insert into genres (name) VALUES ('научный');
+Insert into genres (name) VALUES ('нуар');
+Insert into genres (name) VALUES ('приключения');
+Insert into genres (name) VALUES ('реалити-шоу');
+Insert into genres (name) VALUES ('семейный');
+Insert into genres (name) VALUES ('спорт');
+Insert into genres (name) VALUES ('ток-шоу');
+Insert into genres (name) VALUES ('триллер');
+Insert into genres (name) VALUES ('ужасы');
+Insert into genres (name) VALUES ('фантастика');
+Insert into genres (name) VALUES ('фэнтези');
 --INSERT INTO public.user_ticket (user_id, ticket_id)
 --VALUES (1, 3);
 --INSERT INTO public.user_ticket (user_id, ticket_id)
