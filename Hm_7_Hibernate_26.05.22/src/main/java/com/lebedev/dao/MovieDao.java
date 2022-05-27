@@ -41,6 +41,14 @@ public class MovieDao {
         return newInstance;
     }
 
+    public void deleteById(Long id){
+        EntityManager em = emf.createEntityManager();
+        Movie deleteMovie = em.find(Movie.class, id);
+        em.getTransaction().begin();
+            em.remove(deleteMovie);
+        em.getTransaction().commit();
+    }
+
 }
 
 
