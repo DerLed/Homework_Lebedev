@@ -1,36 +1,49 @@
 package com.lebedev;
 
+import com.lebedev.dao.GenreDao;
 import com.lebedev.dao.MovieDao;
+import com.lebedev.dao.ShowDao;
 import com.lebedev.entity.Movie;
+import com.lebedev.entity.Show;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         MovieDao movieDao = new MovieDao();
-//        Movie movie = movieDao.findById(222L).orElse(null);
-//        System.out.println(movie);
-////        movie.setTitle("new"+movie.getTitle());
-////        Movie m1 = movieDao.updateMovie(movie);
-////        System.out.println(m1);
-//
-//
-//        Movie movie1 = new Movie();
-//        movie1.setTitle("Начало1");
-//        movie1.setDescription("2010 Кристофер Нолан боевик, мистический фильм, научная фантастика1");
-//        movie1.setDuration(148);
-//        Movie movie = movieDao.findById(2L).orElse(null);
-//        movie.setDuration(125);
-//        movieDao.save(movie);
-        movieDao.deleteById(13L);
-//
-//        movieDao.save(movie1);
-//        List<Movie> lm1 = movieDao.findAll();
-////        List<Movie> lm2 = movieDao.findAll2();
-//        lm1.forEach(System.out::println);
+        GenreDao genreDao = new GenreDao();
+        ShowDao showDao = new ShowDao();
 
+        //Поиск фильма по id
+        Movie movie = movieDao.findById(8L).orElseThrow();
+        System.out.println(movie.getTitle());
+
+        //Обновление фильма
+        movie.setTitle("new" + movie.getTitle());
+        movie.setGenre(genreDao.findById(3L).orElseThrow());
+        Movie updatedMovie = movieDao.save(movie);
+        System.out.println(updatedMovie.getTitle());
+        updatedMovie.getGenres().forEach(System.out::println);
+
+        //Добавление фильма
+        Movie newMovie = new Movie();
+        newMovie.setTitle("Начало");
+        newMovie.setDescription("год: 2010, режисер: Кристофер Нолан, в главной роли Леонардо Ди Каприо");
+        newMovie.setDuration(148);
+        newMovie.setGenre(genreDao.findById(29L).orElseThrow());
+        Movie savedMovie = movieDao.save(newMovie);
+
+        //Добавление сеанса показа фильма
+        Show newShow = new Show();
+        newShow.setTimeStart(LocalDateTime.of(2022, 5, 31, 12, 0));
+        newShow.setMovie(savedMovie);
+        showDao.save(newShow);
+
+        //Поиск по дате сеанса, всех фильмов в данную дату
+        List<Show> ls = showDao.findByDate(LocalDate.of(2022, 5, 31));
+        ls.forEach(System.out::println);
 
     }
-
-
 }

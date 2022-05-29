@@ -13,7 +13,7 @@ DROP table if EXISTS public.ticket_status CASCADE;
 
 CREATE TABLE public.movie
 (
-    id serial
+    id          serial
         constraint movie_pk
             primary key,
     title       varchar(255)  NOT null,
@@ -490,8 +490,10 @@ create table public.genre_movie
 );
 
 
-Insert into public.genre (name) VALUES ('аниме');
-Insert into public.genre (name) VALUES ('биографический');
+Insert into public.genre (name)
+VALUES ('аниме');
+Insert into public.genre (name)
+VALUES ('биографический');
 Insert into public.genre (name)
 VALUES ('боевик');
 Insert into public.genre (name)
@@ -602,3 +604,11 @@ VALUES (10, 4);
 --VALUES (3, 1);
 --INSERT INTO public.user_ticket (user_id, ticket_id)
 --VALUES (1, 4);
+select movie0_.id          as id1_2_,
+       movie0_.description as descript2_2_,
+       movie0_.duration    as duration3_2_,
+       movie0_.title       as title4_2_
+from movie movie0_
+         inner join genre_movie genres1_ on movie0_.id = genres1_.movie_id
+         inner join genre genre2_ on genres1_.genre_id = genre2_.id
+where genre2_.name like ?

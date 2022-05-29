@@ -1,15 +1,17 @@
 package com.lebedev.dao;
 
+import com.lebedev.entity.Genre;
+import com.lebedev.entity.Genre_;
 import com.lebedev.entity.Movie;
+import com.lebedev.entity.Movie_;
 import com.lebedev.exception.MovieNotFoundException;
 import com.lebedev.util.EmfUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class MovieDao {
@@ -49,16 +51,32 @@ public class MovieDao {
         em.getTransaction().commit();
     }
 
+    public List<Movie> findMovieByGenre(String genreName){
+        EntityManager em = emf.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Movie> qr = cb.createQuery(Movie.class);
+        Root<Movie> root = qr.from(Movie.class);
+        Join<Movie, Genre> j = root.join(Movie_.genres);
+        root.fetch(Movie_.genres);
+        Predicate p = cb.like(cb.lower(j.get(Genre_.name)), "%"+ genreName.toLowerCase(Locale.ROOT)+"%");
+        qr.where(p);
+        qr.distinct(true);
+        return em.createQuery(qr).getResultList();
+    }
+
+    //такой метод скорее всего избыточен но оставил его
+    public Movie setGenre(Movie movie, Genre genre){
+        EntityManager em = emf.createEntityManager();
+        Movie newInstance;
+        em.getTransaction().begin();
+        if (movie.getId() == null) {
+            throw new MovieNotFoundException();
+        } else {
+            movie.setGenre(genre);
+            newInstance = em.merge(movie);
+        }
+        em.getTransaction().commit();
+        return newInstance;
+    }
+
 }
-
-
-
-//        CriteriaUpdate<Movie> criteriaUpdate = cb.createCriteriaUpdate(Movie.class);
-//        Root<Movie> root = criteriaUpdate.from(Movie.class);
-//        criteriaUpdate.set("title", movie.getTitle());
-//        criteriaUpdate.set("title", movie.getTitle());
-//        criteriaUpdate.where(cb.equal(root.get("itemPrice"), oldPrice));
-
-//        Transaction transaction = session.beginTransaction();
-//        session.createQuery(criteriaUpdate).executeUpdate();
-//        transaction.commit();
