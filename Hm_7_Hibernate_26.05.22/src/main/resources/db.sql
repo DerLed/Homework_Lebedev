@@ -32,8 +32,9 @@ CREATE TABLE public.hall
 
 CREATE TABLE public."show"
 (
-    id         integer GENERATED ALWAYS AS identity
-        CONSTRAINT show_pk PRIMARY KEY,
+    id         serial
+        constraint show_pk
+            primary key,
     movie_id   integer   not null
         constraint movie_fk references public.movie (id),
     time_start timestamp not NULL
@@ -475,8 +476,9 @@ VALUES (1, 5, 100, 1);
 
 CREATE TABLE public.genre
 (
-    id     integer     NOT NULL GENERATED ALWAYS AS identity
-        constraint genre_pk primary key,
+    id         serial
+        constraint show_pk
+            primary key,
     "name" varchar(64) not NULL
 );
 
