@@ -4,16 +4,28 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <!-- 1ый способ задать конфиг для Inversion of Control - Всё через XML -->
-    <bean id="myPet"
-          class="spring.core.lesson4.Cat">
+    <bean id="client"
+          class="ru.lebedev.entity.Client">
+        <property name="name" value="Петр"/>
     </bean>
 
-    <bean id="myPerson" class="spring.core.lesson4.Person">
-        <!-- Задание зависимости через setter
-             Необходимо внимательно следить именами setter'ов-->
-        <property name="pet" ref="myPet"/>
+    <bean id="paymentAccount" class="ru.lebedev.entity.PaymentAccount" scope="prototype">
+        <constructor-arg type="boolean" name="isAddable" value="true"/>
+        <constructor-arg type="boolean" name="isPaying" value="true"/>
+        <constructor-arg type="boolean" name="isTransferred" value="true"/>
+    </bean>
 
-        <property name="surname" value="Иванов"/>
-        <property name="age" value="19"/>
+    <bean id="loanAccount_10000Limit" class="ru.lebedev.entity.CreditAccount" scope="prototype">
+        <constructor-arg type="boolean" name="isAddable" value="true"/>
+        <constructor-arg type="boolean" name="isPaying" value="true"/>
+        <constructor-arg type="boolean" name="isTransferred" value="true"/>
+        <constructor-arg type="java.lang.Long" name="loanAmountLimit" value="10000"/>
+    </bean>
+
+    <bean id="loanAccount_1000000Limit" class="ru.lebedev.entity.CreditAccount" scope="prototype">
+        <constructor-arg type="boolean" name="isAddable" value="true"/>
+        <constructor-arg type="boolean" name="isPaying" value="true"/>
+        <constructor-arg type="boolean" name="isTransferred" value="true"/>
+        <constructor-arg type="java.lang.Long" name="loanAmountLimit" value="1000000"/>
     </bean>
 </beans>

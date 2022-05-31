@@ -1,11 +1,15 @@
 package ru.lebedev;
 
-import ru.lebedev.entity.Account;
-import ru.lebedev.entity.AccountImpl;
-import ru.lebedev.entity.SavingsAccount;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.lebedev.entity.Client;
 
 public class Main {
     public static void main(String[] args) {
-        Account a = new SavingsAccount();
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        Client client = context.getBean("client", Client.class);
+
     }
+
 }
