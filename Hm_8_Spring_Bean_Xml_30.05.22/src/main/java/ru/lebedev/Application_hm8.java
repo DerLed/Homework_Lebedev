@@ -23,6 +23,7 @@ public class Application_hm8 {
         //выведем общую информацию о счетах каждого клиента
         client.sayAllAmountMoney();
         client2.sayAllAmountMoney();
+        context.close();
 
         /*вывод на консоль:
         Привет, я Петр, вот мои финансы:
