@@ -1,5 +1,9 @@
 package ru.lebedev.entity;
 
+/**
+ * Класс описывает общий аккаунт
+ * переменные isAddable, isPaying, isTransferred задают возможность добавлять, платить или переводить со счета деньги
+ */
 public abstract class BaseAccount implements Account{
 
     boolean isAddable;
@@ -10,17 +14,5 @@ public abstract class BaseAccount implements Account{
         this.isAddable = isAddable;
         this.isPaying = isPaying;
         this.isTransferred = isTransferred;
-    }
-
-    public void setAddable(boolean addable) {
-        isAddable = addable;
-    }
-
-    public void setPaying(boolean paying) {
-        isPaying = paying;
-    }
-
-    public void setTransferred(boolean transferred) {
-        isTransferred = transferred;
     }
 }

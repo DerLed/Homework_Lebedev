@@ -1,9 +1,9 @@
 package ru.lebedev.entity;
 
-public class PaymentAccount extends BaseAccount{
+public class DebitAccount extends BaseAccount{
     private Long balance;
 
-    public PaymentAccount(boolean isAddable, boolean isPaying, boolean isTransferred) {
+    public DebitAccount(boolean isAddable, boolean isPaying, boolean isTransferred) {
         super(isAddable, isPaying, isTransferred);
         this.balance = 0L;
     }

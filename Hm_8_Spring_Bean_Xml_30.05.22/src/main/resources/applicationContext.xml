@@ -3,29 +3,54 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <!-- 1ый способ задать конфиг для Inversion of Control - Всё через XML -->
-    <bean id="client"
-          class="ru.lebedev.entity.Client">
-        <property name="name" value="Петр"/>
-    </bean>
+<!--         конфигурация трех бинов -->
+<!--         1 - дебетовый счет на 50000-->
+<!--         2 - кредитный счет на 10000-->
+<!--         3 - кредитный счет на 1000000-->
 
-    <bean id="paymentAccount" class="ru.lebedev.entity.PaymentAccount" scope="prototype">
+    <bean id="paymentAccount" class="ru.lebedev.entity.DebitAccount" scope="prototype">
         <constructor-arg type="boolean" name="isAddable" value="true"/>
         <constructor-arg type="boolean" name="isPaying" value="true"/>
         <constructor-arg type="boolean" name="isTransferred" value="true"/>
+        <property name="balance" value="50000"/>
     </bean>
 
     <bean id="loanAccount_10000Limit" class="ru.lebedev.entity.CreditAccount" scope="prototype">
         <constructor-arg type="boolean" name="isAddable" value="true"/>
         <constructor-arg type="boolean" name="isPaying" value="true"/>
-        <constructor-arg type="boolean" name="isTransferred" value="true"/>
+        <constructor-arg type="boolean" name="isTransferred" value="false"/>
         <constructor-arg type="java.lang.Long" name="loanAmountLimit" value="10000"/>
     </bean>
 
     <bean id="loanAccount_1000000Limit" class="ru.lebedev.entity.CreditAccount" scope="prototype">
         <constructor-arg type="boolean" name="isAddable" value="true"/>
         <constructor-arg type="boolean" name="isPaying" value="true"/>
-        <constructor-arg type="boolean" name="isTransferred" value="true"/>
+        <constructor-arg type="boolean" name="isTransferred" value="false"/>
         <constructor-arg type="java.lang.Long" name="loanAmountLimit" value="1000000"/>
     </bean>
+
+<!--    создадим два бина клиента и внедрим им список из соотвествующих бинов-->
+<!--    так как у внедряемых бинов scope="prototype", то внедрятся разные экземпляры этих бинов -->
+    <bean id="client"
+          class="ru.lebedev.entity.Client">
+        <property name="name" value="Петр"/>
+        <property name="accountList">
+            <list>
+                <ref bean="paymentAccount"/>
+                <ref bean="loanAccount_1000000Limit"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="client2"
+          class="ru.lebedev.entity.Client">
+        <property name="name" value="Василий"/>
+        <property name="accountList">
+            <list>
+                <ref bean="paymentAccount"/>
+                <ref bean="loanAccount_10000Limit"/>
+            </list>
+        </property>
+    </bean>
+    
 </beans>

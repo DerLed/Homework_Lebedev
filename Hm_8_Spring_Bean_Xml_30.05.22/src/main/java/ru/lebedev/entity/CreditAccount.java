@@ -43,4 +43,8 @@ public class CreditAccount extends BaseAccount{
     public void setLoanAmount(Long loanAmount) {
         this.loanAmount = loanAmount;
     }
+
+    public Long getLoanAmount() {
+        return loanAmount;
+    }
 }
