@@ -21,7 +21,7 @@ public class Application_Hm9 {
 //        );
 
 //        System.out.println(BigDecimal.valueOf(4).pow(-2, MathContext.DECIMAL128));
-
+        Loan loan1 = context.getBean(Loan.class);
         Loan loan = new Loan(BigDecimal.valueOf(100000), BigDecimal.valueOf(15),12, LocalDate.now());
         loan.getPaymentSchedule().forEach(System.out::println);
     }
