@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 public class Repayment {
-    private LocalDate paymentDate;
+    private LocalDate repaymentDate;
     private BigDecimal percentage;
     private BigDecimal debt;
     private boolean isCompleted;
