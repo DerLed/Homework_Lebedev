@@ -8,7 +8,9 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @ToString
-public class Payment {
+public class Repayment {
     private LocalDate paymentDate;
-    private BigDecimal amount;
+    private BigDecimal percentage;
+    private BigDecimal debt;
+    private boolean isCompleted;
 }
