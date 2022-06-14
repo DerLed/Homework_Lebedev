@@ -24,10 +24,6 @@ public class Repayment {
     private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @ManyToOne
     @JoinColumn(name = "loan_id")
     private Loan loan;
 

@@ -52,7 +52,6 @@ public class ClientService {
 
     public void pay(Client client, Loan loan, BigDecimal amount){
         Repayment repayment = new Repayment();
-        repayment.setClient(client);
         repayment.setAmount(amount);
         repayment.setLoan(loan);
         repayment.setRepaymentDate(LocalDate.now());

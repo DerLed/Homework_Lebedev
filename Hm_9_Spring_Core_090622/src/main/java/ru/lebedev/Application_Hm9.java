@@ -14,16 +14,19 @@ import java.time.LocalDate;
 public class Application_Hm9 {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext("ru.lebedev");
-        LoanService service = context.getBean(LoanService.class);
+
+        LoanService loanService = context.getBean(LoanService.class);
         ClientService clientService = context.getBean(ClientService.class);
+
         Client client = new Client();
         client.setName("Вася");
         clientService.save(client);
+
         LoanApplication la = clientService.makeLoanApplication(client.getId(),
                 BigDecimal.valueOf(100000),
                 BigDecimal.valueOf(10),
                 12);
-        service.addNewLoan(la);
+        loanService.addNewLoan(la);
 
 
 
