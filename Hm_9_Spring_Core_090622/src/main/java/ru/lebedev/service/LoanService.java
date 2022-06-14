@@ -9,6 +9,7 @@ import ru.lebedev.core.LoanApplication;
 import ru.lebedev.core.LoanFactory;
 import ru.lebedev.repository.LoanRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,13 +33,17 @@ public class LoanService {
         return loanRepository.findById(id);
     }
 
-    public Loan findByClientId(Integer id){
+    public List<Loan> findByClientId(Integer id){
         return loanRepository.findByClientId(id);
     }
 
-    public void addNewLoan(LoanApplication loanApplication){
+    public Loan addNewLoan(LoanApplication loanApplication){
         Loan loan = loanFactory.getLoan(loanApplication);
-        loanRepository.save(loan);
+        return loanRepository.save(loan);
+    }
+
+    public void pay(Integer loanId, BigDecimal amount){
+        loanRepository.pay(loanId, amount);
     }
 
 }

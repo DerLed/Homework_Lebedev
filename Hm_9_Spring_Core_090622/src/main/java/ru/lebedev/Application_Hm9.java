@@ -20,16 +20,16 @@ public class Application_Hm9 {
 
         Client client = new Client();
         client.setName("Вася");
+        client.setCash(BigDecimal.valueOf(10000));
         clientService.save(client);
 
         LoanApplication la = clientService.makeLoanApplication(client.getId(),
                 BigDecimal.valueOf(100000),
                 BigDecimal.valueOf(10),
                 12);
-        loanService.addNewLoan(la);
+        Loan l = loanService.addNewLoan(la);
 
-
-
+        loanService.pay(l.getId(), l.getMonthRepayment());
 
     }
 }

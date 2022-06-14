@@ -38,7 +38,7 @@ public class Loan {
     @Column(name = "month_repayment")
     private BigDecimal monthRepayment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 

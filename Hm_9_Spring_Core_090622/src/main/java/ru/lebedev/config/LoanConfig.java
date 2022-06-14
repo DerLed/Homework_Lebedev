@@ -1,4 +1,4 @@
-package ru.lebedev;
+package ru.lebedev.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

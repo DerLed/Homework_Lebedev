@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -19,6 +20,8 @@ public class Client {
     private Integer id;
     @Column(name = "name")
     private String name;
+    @Column(name = "cash")
+    private BigDecimal cash;
 
     @Override
     public boolean equals(Object o) {
