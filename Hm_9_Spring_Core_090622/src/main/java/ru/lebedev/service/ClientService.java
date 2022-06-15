@@ -2,55 +2,55 @@ package ru.lebedev.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.lebedev.core.Client;
-import ru.lebedev.core.Loan;
+import ru.lebedev.core.entity.Client;
+import ru.lebedev.core.entity.Loan;
 import ru.lebedev.core.LoanApplication;
-import ru.lebedev.core.Repayment;
-import ru.lebedev.repository.ClientRepo;
+import ru.lebedev.core.entity.Repayment;
+import ru.lebedev.repository.ClientRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ClientService {
-    private final ClientRepo clientRepo;
+    private final ClientRepository clientRepository;
 
-    public List<Client> findAll(){
-        return clientRepo.findAll();
+    public List<Client> findAll() {
+        return clientRepository.findAll();
     }
 
-    public Client findOne(Integer id){
-        return clientRepo.findById(id).orElseThrow();
+    public Client findOne(Integer id) {
+        return clientRepository.findById(id).orElseThrow();
     }
 
-    public Client save(Client client){
-        return clientRepo.save(client);
+    public Client save(Client client) {
+        return clientRepository.save(client);
     }
 
-    public Client replaceClient(Client newClient, Integer id){
-        return clientRepo.findById(id)
+    public Client replaceClient(Client newClient, Integer id) {
+        return clientRepository.findById(id)
                 .map(client -> {
                     client.setName(newClient.getName());
-                    return clientRepo.save(client);
+                    return clientRepository.save(client);
                 })
                 .orElseGet(() -> {
                     newClient.setId(id);
-                    return clientRepo.save(newClient);
+                    return clientRepository.save(newClient);
                 });
     }
 
-    public void deleteById(Integer id){
-        clientRepo.deleteById(id);
+    public void deleteById(Integer id) {
+        clientRepository.deleteById(id);
     }
 
-    public LoanApplication makeLoanApplication(Integer id, BigDecimal amount, BigDecimal rate, Integer loanPeriod){
-        Client client = clientRepo.findById(id).orElseThrow();
+    public LoanApplication makeLoanApplication(Integer id, BigDecimal amount, BigDecimal rate, Integer loanPeriod) {
+        Client client = clientRepository.findById(id).orElseThrow();
         return new LoanApplication(client, amount, rate, loanPeriod);
     }
 
-    public void pay(Client client, Loan loan, BigDecimal amount){
+    public void pay(Client client, Loan loan, BigDecimal amount) {
         Repayment repayment = new Repayment();
         repayment.setAmount(amount);
         repayment.setLoan(loan);

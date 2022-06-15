@@ -1,11 +1,11 @@
-package ru.lebedev.core;
+package ru.lebedev.core.entity;
 
 import lombok.*;
+import ru.lebedev.core.entity.Client;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -18,8 +18,8 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loan_seq")
     @SequenceGenerator(name = "loan_seq",
-    sequenceName = "loan_loan_id_seq",
-    allocationSize = 1)
+            sequenceName = "loan_loan_id_seq",
+            allocationSize = 1)
     @Column(name = "loan_id")
     private Integer id;
 
@@ -40,6 +40,7 @@ public class Loan {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
+    @ToString.Exclude
     private Client client;
 
 

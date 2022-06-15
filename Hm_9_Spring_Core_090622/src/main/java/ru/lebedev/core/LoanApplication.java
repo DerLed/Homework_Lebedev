@@ -2,6 +2,7 @@ package ru.lebedev.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.lebedev.core.entity.Client;
 
 import java.math.BigDecimal;
 

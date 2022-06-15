@@ -1,10 +1,8 @@
 package ru.lebedev.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.lebedev.core.Client;
-import ru.lebedev.core.Loan;
+import ru.lebedev.core.entity.Loan;
 import ru.lebedev.core.LoanApplication;
 import ru.lebedev.core.LoanFactory;
 import ru.lebedev.repository.LoanRepository;

@@ -1,11 +1,11 @@
-package ru.lebedev.core;
+package ru.lebedev.core.entity;
 
 import lombok.*;
+import ru.lebedev.core.entity.Loan;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 
 @Getter
 @Setter

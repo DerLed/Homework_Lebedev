@@ -1,4 +1,4 @@
-package ru.lebedev.core;
+package ru.lebedev.core.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
