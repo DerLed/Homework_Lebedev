@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ru.lebedev.helper.PropertyHelper;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -19,6 +20,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.lebedev")
 public class JpaConfig {
+
+    Properties properties = PropertyHelper.getInstance().getProperties();
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
@@ -37,9 +40,9 @@ public class JpaConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/bank");
-        dataSource.setUsername( "postgres" );
-        dataSource.setPassword( "123456" );
+        dataSource.setUrl(properties.getProperty("db.url"));
+        dataSource.setUsername( properties.getProperty("db.user") );
+        dataSource.setPassword( properties.getProperty("db.password") );
         return dataSource;
     }
 
