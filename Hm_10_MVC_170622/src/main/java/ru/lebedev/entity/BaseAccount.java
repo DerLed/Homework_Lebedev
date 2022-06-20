@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class BaseAccount implements Account{
+public class BaseAccount{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_gen")
     @SequenceGenerator(name = "account_gen", sequenceName = "account_id_seq", allocationSize = 1)
@@ -25,13 +24,4 @@ public abstract class BaseAccount implements Account{
     @ToString.Exclude
     private Client client;
 
-    @Override
-    public void deposit(BigDecimal amount) {
-        this.balance = this.balance.add(amount);
-    }
-
-    @Override
-    public void withdraw(BigDecimal amount) {
-        this.balance = this.balance.subtract(amount);
-    }
 }
